@@ -41,16 +41,16 @@ public class VideoResource {
     }
 
     @GET
-    @Path("{title}")
-    public Uni<Video> getVideoByTitle(@PathParam("title") String encodedTitle) {
-        String title;
+    @Path("{slug}")
+    public Uni<Video> getVideoBySlug(@PathParam("slug") String encodedSlug) {
+        String slug;
         try {
-            title = URLDecoder.decode(encodedTitle, StandardCharsets.UTF_8.toString());
+            slug = URLDecoder.decode(encodedSlug, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
             throw new BadRequestResponseException("Title cannot be decoded from UTF-8");
         }
 
-        Uni<Video> video = Video.findById(title);
+        Uni<Video> video = Video.find("slug", slug).firstResult();
 
         return video
                 .onItem().ifNull().failWith(new NotFoundException())

@@ -7,7 +7,7 @@ docker pull dpage/pgadmin4
 docker container inspect $CONTAINERNAME &>/dev/null && docker rm $CONTAINERNAME
 docker run \
     --name $CONTAINERNAME \
-    --volume ./../../../../local/dev/pgadmin:/var/lib/pgadmin \
+    --volume ./local/dev/pgadmin:/var/lib/pgadmin \
     -p 5050:80 \
     -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' \
     -e 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' \
